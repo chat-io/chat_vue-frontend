@@ -1,3 +1,5 @@
+import { authUser } from "../../../services/AuthService.js";
+
 export default {
   login(context, payload) {
     context.dispatch("auth", {
@@ -15,5 +17,7 @@ export default {
     console.log("auth action");
     console.log(payload);
     console.log(context);
+
+    authUser(payload);
   },
 };

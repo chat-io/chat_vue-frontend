@@ -1,8 +1,12 @@
 //test
 import { gql } from "graphql-tag";
 
-const authMuation = (mode, email, password, firstName, lastName, gender) => {
+const authMuation = (payload) => {
+  const mode = payload.mode;
+
   if (mode === "login") {
+    const { email, password } = payload;
+
     // login
     return gql`
       mutation {
@@ -20,6 +24,9 @@ const authMuation = (mode, email, password, firstName, lastName, gender) => {
     `;
   } else {
     // signup
+
+    const { email, password, firstName, lastName, gender } = payload;
+
     return gql`
       mutation {
         signup(data: {
