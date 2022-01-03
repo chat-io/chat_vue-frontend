@@ -1,12 +1,11 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
+
+import testModule from "./modules/test/index.js";
+import authModule from "./modules/auth/index.js";
 
 export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
-  }
-})
+    test: testModule,
+    auth: authModule,
+  },
+});
