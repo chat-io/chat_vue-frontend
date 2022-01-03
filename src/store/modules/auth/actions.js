@@ -5,7 +5,7 @@ export default {
       mode: "login",
     });
   },
-  logout(context, payload) {
+  signup(context, payload) {
     context.dispatch("auth", {
       ...payload,
       mode: "signin",
