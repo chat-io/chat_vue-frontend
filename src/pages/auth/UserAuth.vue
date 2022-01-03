@@ -41,7 +41,7 @@
     </form>
     <div class="to-signup actions">
       <BaseButton mode="flat" @click="toggleAuthMode">
-        Don't have an account? Signup
+        {{ toggleAuthModeButtonText }}
       </BaseButton>
     </div>
   </BaseCard>
@@ -58,6 +58,12 @@ const isSignup = ref(false);
 
 const pageTitle = computed(() => {
   return isSignup.value ? "Singup" : "Login";
+});
+
+const toggleAuthModeButtonText = computed(() => {
+  return isSignup.value
+    ? `Already have an account? Login!`
+    : `Don't have an account? Singup!`;
 });
 
 const toggleAuthMode = () => {
@@ -105,6 +111,7 @@ select {
   font: inherit;
   border: 1px solid #ccc;
   padding: 0.15rem;
+  font-size: 1.25rem;
 }
 
 input:focus {
