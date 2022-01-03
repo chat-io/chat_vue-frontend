@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import UserAuth from "../pages/auth/UserAuth.vue";
 import ChatMain from "../pages/chat/ChatMain.vue";
+import NotFound from "../pages/NotFound.vue";
 
 // import App from "../App.vue";
 const routes = [
@@ -12,6 +13,10 @@ const routes = [
   {
     path: "/chat",
     component: ChatMain,
+  },
+  {
+    path: "/:notFound(.*)",
+    component: NotFound,
   },
 ];
 
