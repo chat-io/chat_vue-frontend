@@ -1,22 +1,22 @@
 <template>
   <BaseDialog :show="show" title="User Update" @close="closeWindow">
-    <form @submit.prevent="submitForm">
+    <form>
       <div class="form-control">
         <label for="password">Password</label>
-        <input type="password" id="password" v-model="enteredPassword" />
+        <input type="password" id="password" v-model.trim="enteredPassword" />
       </div>
       <div class="form-control">
         <label for="firstname">First Name</label>
-        <input type="text" id="firstname" v-model="enteredFirstName" />
+        <input type="text" id="firstname" v-model.trim="enteredFirstName" />
       </div>
       <div class="form-control">
         <label for="lastname">Last Name</label>
-        <input type="text" id="lastname" v-model="enteredLastName" />
+        <input type="text" id="lastname" v-model.trim="enteredLastName" />
       </div>
-      <div class="form-control">
+      <!-- <div class="form-control">
         <label for="avatar">Avatar</label>
         <input type="file" id="avatar" />
-      </div>
+      </div> -->
       <div class="form-control">
         <label for="gender">Gender</label>
         <select id="gender" required="true" v-model="enteredGender">
@@ -26,30 +26,63 @@
       </div>
     </form>
     <template #actions>
-      <BaseButton>Confirm</BaseButton>
+      <BaseButton @click="submitForm">Confirm</BaseButton>
       <BaseButton mode="flat" @click="closeWindow">Cancel</BaseButton>
     </template>
   </BaseDialog>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeUpdate, defineEmits } from "vue";
+import { useStore } from "vuex";
 import { getUserInfoFromLocalStorage } from "..//../util/localStorage/getUserInfo.js";
-
+import { updateUser } from "../../services/UserService.js";
 const userInfo = getUserInfoFromLocalStorage();
 
 // user update input initialization
 const enteredPassword = ref("");
 const enteredFirstName = ref(userInfo.firstName);
 const enteredLastName = ref(userInfo.lastName);
-const enteredAvatar = ref(null);
+// const enteredAvatar = ref(null);
 const enteredGender = ref(userInfo.gender);
 
 //submit handler
-const submitForm = () => {
-  console.log(enteredPassword.value);
-  console.log(enteredFirstName.value);
-  console.log(enteredLastName.value);
+const store = useStore();
+const isLoading = ref(false);
+const error = ref(null);
+
+const submitForm = async () => {
+  isLoading.value = true;
+  const updateData = {
+    ...userInfo,
+  };
+
+  if (enteredPassword.value !== "") {
+    updateData.password = enteredPassword.value;
+  }
+  if (enteredFirstName.value !== "") {
+    updateData.firstName = enteredFirstName.value;
+  }
+  if (enteredLastName.value !== "") {
+    updateData.lastName = enteredLastName.value;
+  }
+  updateData.gender = enteredGender.value;
+
+  try {
+    let updatedUser = await updateUser(updateData);
+    updatedUser = updatedUser.data.updateUser.user;
+    console.log(updatedUser);
+    localStorage.setItem("token", updatedUser.token);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+  } catch (err) {
+    error.value = err.message || "Failed to update user.";
+  }
+  isLoading.value = false;
+
+  //update complete
+  if (!isLoading.value && !error.value) {
+    closeWindow();
+  }
 };
 
 const show = ref(true);
@@ -57,6 +90,11 @@ const show = ref(true);
 const closeWindow = () => {
   show.value = false;
 };
+
+const emit = defineEmits(["updated"]);
+onBeforeUpdate(() => {
+  //
+});
 </script>
 
 <style scoped>

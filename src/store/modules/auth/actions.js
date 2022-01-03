@@ -24,6 +24,7 @@ export default {
         email: userData.data[payload.mode].email,
         firstName: userData.data[payload.mode].user.firstName,
         lastName: userData.data[payload.mode].user.lastName,
+        avatar: userData.data[payload.mode].avatar,
         gender: userData.data[payload.mode].user.gender,
       },
     };
