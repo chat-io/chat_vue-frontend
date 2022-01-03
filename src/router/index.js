@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import UserLogin from "../pages/auth/UserLogin.vue";
 import UserSignup from "../pages/auth/UserSignup.vue";
+import ChatMain from "../pages/chat/ChatMain.vue";
 
 // import App from "../App.vue";
 const routes = [
@@ -15,7 +16,7 @@ const routes = [
   },
   {
     path: "/chat",
-    component: null,
+    component: ChatMain,
   },
 ];
 
