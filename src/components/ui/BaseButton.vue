@@ -27,8 +27,6 @@ const props = defineProps({
   },
 });
 
-console.log(props);
-
 const { mode, link, to } = toRefs(props);
 </script>
 

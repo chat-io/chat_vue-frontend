@@ -1,4 +1,7 @@
 <template>
+  <BaseDialog :show="isLoading" title="Authenticating..." fixed>
+    <BaseSpinner />
+  </BaseDialog>
   <BaseCard>
     <div class="img-container">
       <img :src="loginImageSrc" v-if="!isSignup" />
@@ -58,7 +61,6 @@ const signupImageSrc = require("@/assets/signup.svg");
 //auth mode 관리 (loing / signup)
 const isSignup = ref(false);
 
-console.log(isSignup);
 const pageTitle = computed(() => {
   return isSignup.value ? "Singup" : "Login";
 });
@@ -84,7 +86,11 @@ const enteredGender = ref("");
 const store = useStore();
 const router = useRouter();
 
+const isLoading = ref(false);
+
 const submitForm = async () => {
+  isLoading.value = true;
+
   // prepare action payload
   const actionPayload = {
     email: enteredEmail.value,
@@ -108,6 +114,7 @@ const submitForm = async () => {
       await store.dispatch("signup", actionPayload);
     }
 
+    isLoading.value = false;
     const redirectUrl = `/chat`;
     router.replace(redirectUrl);
   } catch (error) {

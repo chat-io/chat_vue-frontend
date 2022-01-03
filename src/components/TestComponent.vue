@@ -21,6 +21,4 @@ store.dispatch("test/getUsers");
 const usersList = computed(() => {
   return store.getters["test/users"];
 });
-
-console.log(usersList);
 </script>
