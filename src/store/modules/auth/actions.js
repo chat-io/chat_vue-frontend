@@ -28,6 +28,10 @@ export default {
       },
     };
 
+    context.commit("setUser", {
+      token: setLocalStoragePayload.token,
+      userId: setLocalStoragePayload.id,
+    });
     setLocalStorageForUser(setLocalStoragePayload);
   },
 };

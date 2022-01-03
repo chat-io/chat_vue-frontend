@@ -3,6 +3,7 @@
 </template>
 
 <script setup>
+import UserUpdate from "../../components/user/UserUpdate.vue";
 //
 console.log("chat main");
 </script>
