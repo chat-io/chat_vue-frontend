@@ -1,5 +1,6 @@
 <template>
   <h1>Chat Main</h1>
+  <UserUpdate />
 </template>
 
 <script setup>

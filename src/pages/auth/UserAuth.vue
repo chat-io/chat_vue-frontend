@@ -79,8 +79,8 @@ const toggleAuthMode = () => {
 };
 
 // user input data
-const enteredEmail = ref("");
-const enteredPassword = ref("");
+const enteredEmail = ref("test@test.com");
+const enteredPassword = ref("tester321");
 const enteredFirstName = ref("");
 const enteredLastName = ref("");
 const enteredGender = ref("");
