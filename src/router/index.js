@@ -1,18 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
-import UserLogin from "../pages/auth/UserLogin.vue";
-import UserSignup from "../pages/auth/UserSignup.vue";
+import UserAuth from "../pages/auth/UserAuth.vue";
 import ChatMain from "../pages/chat/ChatMain.vue";
 
 // import App from "../App.vue";
 const routes = [
   { path: "/", redirect: "/login" },
   {
-    path: "/login",
-    component: UserLogin,
-  },
-  {
-    path: "/signup",
-    component: UserSignup,
+    path: "/auth",
+    component: UserAuth,
   },
   {
     path: "/chat",

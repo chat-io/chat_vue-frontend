@@ -1,4 +1,10 @@
 <template>
+  <BaseDialog :show="!!error" title="An error occurred" @close="handleError">
+    <p>{{ error }}</p>
+  </BaseDialog>
+  <BaseDialog :show="isLoading" title="Authenticating..." fixed>
+    <BaseSpinner />
+  </BaseDialog>
   <BaseCard>
     <div class="img-container">
       <img :src="loginImageSrc" v-if="!isSignup" />
@@ -20,11 +26,11 @@
       <div class="signup-form" v-if="isSignup">
         <div class="form-control">
           <label for="firstname">First Name</label>
-          <input type="text" id="firstname" v-model="enteredFirstname" />
+          <input type="text" id="firstname" v-model="enteredFirstName" />
         </div>
         <div class="form-control">
           <label for="lastname">Last Name</label>
-          <input type="text" id="lastname" v-model="enteredLastname" />
+          <input type="text" id="lastname" v-model="enteredLastName" />
         </div>
         <div class="form-control">
           <label for="gender">Gender</label>
@@ -41,7 +47,7 @@
     </form>
     <div class="to-signup actions">
       <BaseButton mode="flat" @click="toggleAuthMode">
-        Don't have an account? Signup
+        {{ toggleAuthModeButtonText }}
       </BaseButton>
     </div>
   </BaseCard>
@@ -49,6 +55,8 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 const loginImageSrc = require("@/assets/login.svg");
 const signupImageSrc = require("@/assets/signup.svg");
@@ -60,6 +68,12 @@ const pageTitle = computed(() => {
   return isSignup.value ? "Singup" : "Login";
 });
 
+const toggleAuthModeButtonText = computed(() => {
+  return isSignup.value
+    ? `Already have an account? Login!`
+    : `Don't have an account? Singup!`;
+});
+
 const toggleAuthMode = () => {
   isSignup.value = !isSignup.value;
 };
@@ -67,17 +81,53 @@ const toggleAuthMode = () => {
 // user input data
 const enteredEmail = ref("");
 const enteredPassword = ref("");
-const enteredFirstname = ref("");
-const enteredLastname = ref("");
+const enteredFirstName = ref("");
+const enteredLastName = ref("");
 const enteredGender = ref("");
 
 //submit handler
-const submitForm = () => {
-  console.log(enteredEmail.value);
-  console.log(enteredPassword.value);
-  console.log(enteredFirstname.value);
-  console.log(enteredLastname.value);
-  console.log(enteredGender.value);
+const store = useStore();
+const router = useRouter();
+
+const isLoading = ref(false);
+const error = ref(null);
+
+const submitForm = async () => {
+  isLoading.value = true;
+
+  // prepare action payload
+  const actionPayload = {
+    email: enteredEmail.value,
+    password: enteredPassword.value,
+  };
+
+  if (isSignup.value) {
+    actionPayload.firstName = enteredFirstName.value;
+    actionPayload.lastName = enteredLastName.value;
+    actionPayload.gender = enteredGender.value;
+  }
+
+  // dispatch auth action
+  try {
+    if (!isSignup.value) {
+      //login mode
+      await store.dispatch("login", actionPayload);
+    } else {
+      // signup mode
+      await store.dispatch("signup", actionPayload);
+    }
+    const redirectUrl = `/chat`;
+    router.replace(redirectUrl);
+  } catch (err) {
+    // error handling (github #5)
+    error.value = err.message || "Failed to authenticate.";
+  }
+
+  isLoading.value = false;
+};
+
+const handleError = () => {
+  error.value = null;
 };
 </script>
 
@@ -105,6 +155,7 @@ select {
   font: inherit;
   border: 1px solid #ccc;
   padding: 0.15rem;
+  font-size: 1.25rem;
 }
 
 input:focus {

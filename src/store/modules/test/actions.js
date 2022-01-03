@@ -1,10 +1,8 @@
 import UserService from "../../../services/UserService.js";
 export default {
   async getUsers(context) {
-    // console.log("action: test/getUsers");
     const response = await UserService.getUsers();
 
-    // console.log(response.data.users);
     const usersList = response.data.users;
     console.log(usersList);
     const users = [];

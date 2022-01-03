@@ -17,11 +17,8 @@ const props = defineProps({
 const { name } = toRefs(props);
 
 const store = useStore();
-// console.log(store);
 store.dispatch("test/getUsers");
 const usersList = computed(() => {
   return store.getters["test/users"];
 });
-
-console.log(usersList);
 </script>
