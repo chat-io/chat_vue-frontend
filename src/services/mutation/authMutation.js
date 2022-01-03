@@ -18,6 +18,7 @@ const authMuation = (payload) => {
             firstName
             lastName
             avatar
+            gender
           }
         }
       }
@@ -43,6 +44,7 @@ const authMuation = (payload) => {
             lastName
             email
             avatar
+            gender
           }
         }
       }

@@ -30,7 +30,6 @@ const props = defineProps({
 console.log(props);
 
 const { mode, link, to } = toRefs(props);
-// console.log(mode, link, to);
 </script>
 
 <style scoped>

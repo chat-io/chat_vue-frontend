@@ -107,7 +107,7 @@ const submitForm = async () => {
       // signup mode
       await store.dispatch("signup", actionPayload);
     }
-    console.log("?");
+
     const redirectUrl = `/chat`;
     router.replace(redirectUrl);
   } catch (error) {
