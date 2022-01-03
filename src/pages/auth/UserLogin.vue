@@ -40,9 +40,9 @@
       </div>
     </form>
     <div class="to-signup actions">
-      <BaseButton mode="flat" @click="toggleAuthMode"
-        >Don't have an account? Signup</BaseButton
-      >
+      <BaseButton mode="flat" @click="toggleAuthMode">
+        Don't have an account? Signup
+      </BaseButton>
     </div>
   </BaseCard>
 </template>
