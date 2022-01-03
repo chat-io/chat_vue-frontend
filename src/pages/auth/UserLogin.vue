@@ -1,37 +1,140 @@
 <template>
-  <h1>Login page</h1>
+  <BaseCard>
+    <div class="img-container">
+      <img :src="loginImageSrc" v-if="!isSignup" />
+      <img :src="signupImageSrc" v-else />
+    </div>
 
-  <div>
-    <BaseButton>Click</BaseButton>
-    <BaseButton mode="flat">Click</BaseButton>
-  </div>
+    <h1 class="page-title">{{ pageTitle }}</h1>
+    <form @submit.prevent="submitForm">
+      <div class="form-control">
+        <label for="email">E-Mail</label>
+        <input type="text" id="email" v-model="enteredEmail" />
+      </div>
+      <div class="form-control">
+        <label for="password">Password</label>
+        <input type="password" id="password" v-model="enteredPassword" />
+      </div>
 
-  <div>
-    <BaseCard><h1>Hello world</h1></BaseCard>
-  </div>
+      <!-- signup  -->
+      <div class="signup-form" v-if="isSignup">
+        <div class="form-control">
+          <label for="firstname">First Name</label>
+          <input type="text" id="firstname" v-model="enteredFirstname" />
+        </div>
+        <div class="form-control">
+          <label for="lastname">Last Name</label>
+          <input type="text" id="lastname" v-model="enteredLastname" />
+        </div>
+        <div class="form-control">
+          <label for="gender">Gender</label>
+          <select id="gender" required="true" v-model="enteredGender">
+            <option value="male">Male</option>
+            <option value="femail">Female</option>
+          </select>
+        </div>
+      </div>
 
-  <div>
-    <BaseDialog title="Dialog test" :show="!!error" @close="closeDialog" />
-  </div>
+      <div class="actions">
+        <BaseButton>{{ pageTitle }}</BaseButton>
+      </div>
+    </form>
+    <div class="to-signup actions">
+      <BaseButton mode="flat" @click="toggleAuthMode"
+        >Don't have an account? Signup</BaseButton
+      >
+    </div>
+  </BaseCard>
 </template>
 
 <script setup>
-// import BaseButton from "../../components/ui/BaseButton.vue";
-// import BaseCard from "../../components/ui/BaseCard.vue";
-// import BaseDialog from "../../components/ui/BaseDialog.vue";
-// import BaseSpinner from '../../components/ui/BaseSpiner.vue'
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
-const error = ref(true);
-const closeDialog = () => {
-  error.value = !error.value;
+const loginImageSrc = require("@/assets/login.svg");
+const signupImageSrc = require("@/assets/signup.svg");
+
+//auth mode 관리 (loing / signup)
+const isSignup = ref(false);
+
+const pageTitle = computed(() => {
+  return isSignup.value ? "Singup" : "Login";
+});
+
+const toggleAuthMode = () => {
+  isSignup.value = !isSignup.value;
 };
 
-console.log("login page");
+// user input data
+const enteredEmail = ref("");
+const enteredPassword = ref("");
+const enteredFirstname = ref("");
+const enteredLastname = ref("");
+const enteredGender = ref("");
+
+//submit handler
+const submitForm = () => {
+  console.log(enteredEmail.value);
+  console.log(enteredPassword.value);
+  console.log(enteredFirstname.value);
+  console.log(enteredLastname.value);
+  console.log(enteredGender.value);
+};
 </script>
 
 <style scoped>
-div {
-  margin: 5rem;
+form {
+  margin: 1rem;
+
+  padding: 1rem;
+}
+
+.form-control {
+  margin: 0.5rem 0;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+input,
+select {
+  display: b lock;
+  width: 100%;
+  font: inherit;
+  border: 1px solid #ccc;
+  padding: 0.15rem;
+}
+
+input:focus {
+  border-color: #ff7f00;
+  background-color: rgba(255, 128, 0, 0.085);
+  outline: none;
+}
+.img-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-container img {
+  width: 40%;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.to-signup {
+  display: flex;
+  justify-content: center;
+}
+
+.page-title {
+  display: flex;
+  justify-content: center;
 }
 </style>
