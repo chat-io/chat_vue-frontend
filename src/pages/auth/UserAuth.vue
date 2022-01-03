@@ -84,7 +84,7 @@ const enteredGender = ref("");
 const store = useStore();
 const router = useRouter();
 
-const submitForm = () => {
+const submitForm = async () => {
   // prepare action payload
   const actionPayload = {
     email: enteredEmail.value,
@@ -102,11 +102,12 @@ const submitForm = () => {
   try {
     if (!isSignup.value) {
       //login mode
-      store.dispatch("login", actionPayload);
+      await store.dispatch("login", actionPayload);
     } else {
       // signup mode
-      store.dispatch("signup", actionPayload);
+      await store.dispatch("signup", actionPayload);
     }
+    console.log("?");
     const redirectUrl = `/chat`;
     router.replace(redirectUrl);
   } catch (error) {

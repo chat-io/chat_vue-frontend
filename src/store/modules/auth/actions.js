@@ -1,23 +1,23 @@
 import { authUser } from "../../../services/AuthService.js";
 
 export default {
-  login(context, payload) {
-    context.dispatch("auth", {
+  async login(context, payload) {
+    return context.dispatch("auth", {
       ...payload,
       mode: "login",
     });
   },
-  signup(context, payload) {
-    context.dispatch("auth", {
+  async signup(context, payload) {
+    return context.dispatch("auth", {
       ...payload,
       mode: "signin",
     });
   },
-  auth(context, payload) {
+  async auth(context, payload) {
     console.log("auth action");
     console.log(payload);
     console.log(context);
 
-    authUser(payload);
+    await authUser(payload);
   },
 };

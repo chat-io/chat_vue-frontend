@@ -9,7 +9,8 @@ const authUser = async (payload) => {
   });
 
   console.log("mutation end");
-
+  console.log("mode");
+  console.log(payload.mode);
   console.log(authResponse);
 };
 
