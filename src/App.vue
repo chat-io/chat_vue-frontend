@@ -1,7 +1,7 @@
 <template>
-  <TestComponent name="test" />
+  <router-view></router-view>
 </template>
 
 <script setup>
-import TestComponent from "./components/TestComponent.vue";
+// import TestComponent from "./components/TestComponent.vue";
 </script>
