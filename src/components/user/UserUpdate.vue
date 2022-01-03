@@ -2,10 +2,6 @@
   <BaseDialog :show="show" title="User Update" @close="closeWindow">
     <form @submit.prevent="submitForm">
       <div class="form-control">
-        <label for="email">E-Mail</label>
-        <input type="text" id="email" v-model="enteredEmail" />
-      </div>
-      <div class="form-control">
         <label for="password">Password</label>
         <input type="password" id="password" v-model="enteredPassword" />
       </div>
@@ -38,18 +34,19 @@
 
 <script setup>
 import { ref } from "vue";
+import { getUserInfoFromLocalStorage } from "..//../util/localStorage/getUserInfo.js";
 
-// user update input
-const enteredEmail = ref("");
+const userInfo = getUserInfoFromLocalStorage();
+
+// user update input initialization
 const enteredPassword = ref("");
-const enteredFirstName = ref("");
-const enteredLastName = ref("");
+const enteredFirstName = ref(userInfo.firstName);
+const enteredLastName = ref(userInfo.lastName);
 const enteredAvatar = ref(null);
-const enteredGender = ref("");
+const enteredGender = ref(userInfo.gender);
 
 //submit handler
 const submitForm = () => {
-  console.log(enteredEmail.value);
   console.log(enteredPassword.value);
   console.log(enteredFirstName.value);
   console.log(enteredLastName.value);
