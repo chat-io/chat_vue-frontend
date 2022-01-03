@@ -1,45 +1,95 @@
 <template>
   <BaseCard>
     <div class="img-container">
-      <img :src="loginImageSrc" class="login-img" />
+      <img :src="loginImageSrc" v-if="!isSignup" />
+      <img :src="signupImageSrc" v-else />
     </div>
+
+    <h1 class="page-title">{{ pageTitle }}</h1>
     <form @submit.prevent="submitForm">
       <div class="form-control">
         <label for="email">E-Mail</label>
-        <input type="email" id="email" />
+        <input type="text" id="email" v-model="enteredEmail" />
       </div>
       <div class="form-control">
         <label for="password">Password</label>
-        <input type="password" id="password" />
+        <input type="password" id="password" v-model="enteredPassword" />
       </div>
+
+      <!-- signup  -->
+      <div class="signup-form" v-if="isSignup">
+        <div class="form-control">
+          <label for="firstname">First Name</label>
+          <input type="text" id="firstname" v-model="enteredFirstname" />
+        </div>
+        <div class="form-control">
+          <label for="lastname">Last Name</label>
+          <input type="text" id="lastname" v-model="enteredLastname" />
+        </div>
+        <div class="form-control">
+          <label for="gender">Gender</label>
+          <select id="gender" required="true" v-model="enteredGender">
+            <option value="male">Male</option>
+            <option value="femail">Female</option>
+          </select>
+        </div>
+      </div>
+
       <div class="actions">
-        <BaseButton>Login</BaseButton>
+        <BaseButton>{{ pageTitle }}</BaseButton>
       </div>
     </form>
-    <div class="to-signup">
-      <BaseButton mode="flat">Don't have an account? Signup</BaseButton>
+    <div class="to-signup actions">
+      <BaseButton mode="flat" @click="toggleAuthMode"
+        >Don't have an account? Signup</BaseButton
+      >
     </div>
   </BaseCard>
 </template>
 
 <script setup>
-// import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const loginImageSrc = require("@/assets/login.svg");
+const signupImageSrc = require("@/assets/signup.svg");
 
-// const error = ref(true);
-console.log("login page");
+//auth mode 관리 (loing / signup)
+const isSignup = ref(false);
+
+const pageTitle = computed(() => {
+  return isSignup.value ? "Singup" : "Login";
+});
+
+const toggleAuthMode = () => {
+  isSignup.value = !isSignup.value;
+};
+
+// user input data
+const enteredEmail = ref("");
+const enteredPassword = ref("");
+const enteredFirstname = ref("");
+const enteredLastname = ref("");
+const enteredGender = ref("");
+
+//submit handler
+const submitForm = () => {
+  console.log(enteredEmail.value);
+  console.log(enteredPassword.value);
+  console.log(enteredFirstname.value);
+  console.log(enteredLastname.value);
+  console.log(enteredGender.value);
+};
 </script>
 
 <style scoped>
 form {
   margin: 1rem;
+
   padding: 1rem;
 }
 
 .form-control {
-  margin: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin: 0.5rem 0;
 }
 
 label {
@@ -48,8 +98,9 @@ label {
   display: block;
 }
 
-input {
-  display: block;
+input,
+select {
+  display: b lock;
   width: 100%;
   font: inherit;
   border: 1px solid #ccc;
@@ -58,26 +109,31 @@ input {
 
 input:focus {
   border-color: #ff7f00;
-  background-color: rgba(255, 128, 0, 0.08);
+  background-color: rgba(255, 128, 0, 0.085);
   outline: none;
 }
-
 .img-container {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.login-img {
-  width: 50%;
+.img-container img {
+  width: 40%;
 }
 
 .actions {
   display: flex;
   justify-content: flex-end;
+  margin-top: 1rem;
 }
 
 .to-signup {
+  display: flex;
+  justify-content: center;
+}
+
+.page-title {
   display: flex;
   justify-content: center;
 }
