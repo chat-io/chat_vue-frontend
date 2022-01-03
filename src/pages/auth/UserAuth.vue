@@ -1,4 +1,7 @@
 <template>
+  <BaseDialog :show="!!error" title="An error occurred" @close="handleError">
+    <p>{{ error }}</p>
+  </BaseDialog>
   <BaseDialog :show="isLoading" title="Authenticating..." fixed>
     <BaseSpinner />
   </BaseDialog>
@@ -87,6 +90,7 @@ const store = useStore();
 const router = useRouter();
 
 const isLoading = ref(false);
+const error = ref(null);
 
 const submitForm = async () => {
   isLoading.value = true;
@@ -104,7 +108,6 @@ const submitForm = async () => {
   }
 
   // dispatch auth action
-
   try {
     if (!isSignup.value) {
       //login mode
@@ -113,14 +116,18 @@ const submitForm = async () => {
       // signup mode
       await store.dispatch("signup", actionPayload);
     }
-
-    isLoading.value = false;
     const redirectUrl = `/chat`;
     router.replace(redirectUrl);
-  } catch (error) {
+  } catch (err) {
     // error handling (github #5)
-    console.log(error);
+    error.value = err.message || "Failed to authenticate.";
   }
+
+  isLoading.value = false;
+};
+
+const handleError = () => {
+  error.value = null;
 };
 </script>
 
