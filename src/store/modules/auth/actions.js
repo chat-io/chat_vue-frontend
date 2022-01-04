@@ -36,4 +36,10 @@ export default {
     });
     setLocalStorageForUser(setLocalStoragePayload);
   },
+  updateUser(context, payload) {
+    context.commit("setUser", {
+      token: payload.token,
+      user: payload.user,
+    });
+  },
 };

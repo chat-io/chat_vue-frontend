@@ -1,9 +1,10 @@
 <template>
   <UserUpdate v-if="isUpdate" @updated="userUpdateHandler" />
+  <UserMenu v-if="isMenuVisible" @updateUser="toggleUpdateModal" />
   <header>
     <nav>
       <h1><router-link to="/">Chat.io</router-link></h1>
-      <div class="profile-menu" @click="toggleUpdateModal">
+      <div class="profile-menu" @click="toggleUserMenu">
         <div class="image-container">
           <img :src="avatarSrc" alt="Avatar" />
         </div>
@@ -19,6 +20,7 @@ import { computed, ref, toRef } from "vue";
 import { useStore } from "vuex";
 
 import UserUpdate from "../user/UserUpdate.vue";
+import UserMenu from "../user/UserMenu.vue";
 
 const store = useStore();
 
@@ -31,9 +33,16 @@ const lastName = computed(() => {
 
 const avatarSrc = require("@/assets/avatar.png");
 
+//user menu 관리
+const isMenuVisible = ref(false);
+const toggleUserMenu = () => {
+  isMenuVisible.value = !isMenuVisible.value;
+};
+
 // update modal 관리
 const isUpdate = ref(false);
 const toggleUpdateModal = () => {
+  toggleUserMenu();
   isUpdate.value = !isUpdate.value;
 };
 </script>
@@ -65,6 +74,7 @@ nav .profile-menu {
   align-items: center;
   position: relative;
   cursor: pointer;
+  z-index: 10;
 }
 
 nav .profile-menu img {
