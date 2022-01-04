@@ -10,6 +10,7 @@ const updateUserMutation = (payload) => {
   return gql`
     mutation {
       updateUser(data: ${dataString}) {
+        token
         user {
           id
           firstName

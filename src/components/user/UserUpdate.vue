@@ -69,13 +69,27 @@ const submitForm = async () => {
   updateData.gender = enteredGender.value;
 
   try {
-    let updatedUser = await updateUser(updateData);
-    updatedUser = updatedUser.data.updateUser.user;
-    console.log(updatedUser);
-    localStorage.setItem("token", updatedUser.token);
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+    const updatedUser = await updateUser(updateData);
+    const { token, user } = await updatedUser.data.updateUser;
+
+    console.log(token, user);
+    // console.log(updatedUser.data);
+    // console.log(updatedUser.data.updateUser.user);
+    // // updatedUser = updatedUser.data.updateUser.user;
+    // const updatedToken = updatedUser.data.updateUser.token;
+    // console.log(updatedUser);
+    // console.log(updatedToken);
+
+    // vuex state update
+    store.dispatch("updateUser", { token, user });
+
+    //localStorage update
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
   } catch (err) {
     error.value = err.message || "Failed to update user.";
+    console.log("error");
+    console.log(error);
   }
   isLoading.value = false;
 
