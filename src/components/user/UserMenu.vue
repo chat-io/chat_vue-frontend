@@ -3,8 +3,10 @@
     <div class="menu-container">
       <BaseCard>
         <div class="profile-options">
-          <BaseButton mode="flat">Update Profile</BaseButton>
-          <BaseButton mode="flat">Logout</BaseButton>
+          <BaseButton mode="flat" @click="updateUser"
+            >Update Profile</BaseButton
+          >
+          <BaseButton mode="flat" @click="logoutUser">Logout</BaseButton>
         </div>
       </BaseCard>
     </div>
@@ -13,6 +15,14 @@
 
 <script setup>
 //
+
+const updateUser = () => {
+  console.log("update");
+};
+
+const logoutUser = () => {
+  console.log("logout");
+};
 </script>
 
 <style scoped>

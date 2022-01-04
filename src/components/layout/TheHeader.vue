@@ -1,10 +1,10 @@
 <template>
   <UserUpdate v-if="isUpdate" @updated="userUpdateHandler" />
-  <UserMenu />
+  <UserMenu v-if="isMenuVisible" />
   <header>
     <nav>
       <h1><router-link to="/">Chat.io</router-link></h1>
-      <div class="profile-menu" @click="toggleUpdateModal">
+      <div class="profile-menu" @click="toggleUserMenu">
         <div class="image-container">
           <img :src="avatarSrc" alt="Avatar" />
         </div>
@@ -32,6 +32,12 @@ const lastName = computed(() => {
 });
 
 const avatarSrc = require("@/assets/avatar.png");
+
+//user menu 관리
+const isMenuVisible = ref(false);
+const toggleUserMenu = () => {
+  isMenuVisible.value = !isMenuVisible.value;
+};
 
 // update modal 관리
 const isUpdate = ref(false);
@@ -67,6 +73,7 @@ nav .profile-menu {
   align-items: center;
   position: relative;
   cursor: pointer;
+  z-index: 100;
 }
 
 nav .profile-menu img {
