@@ -7,7 +7,7 @@ import store from "../store/index";
 
 // import App from "../App.vue";
 const routes = [
-  { path: "/", redirect: "/login" },
+  { path: "/", redirect: "/auth" },
   {
     path: "/auth",
     component: UserAuth,

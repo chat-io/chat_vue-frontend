@@ -31,7 +31,7 @@ export default {
 
     context.commit("setUser", {
       token: setLocalStoragePayload.token,
-      userId: setLocalStoragePayload.id,
+      user: setLocalStoragePayload.user,
     });
     setLocalStorageForUser(setLocalStoragePayload);
   },

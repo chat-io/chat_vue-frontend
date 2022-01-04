@@ -14,8 +14,17 @@
 </template>
 
 <script setup>
-const firstname = "fisrtname";
-const lastname = "lastname";
+import { computed } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+const user = computed(() => {
+  return store.getters["getUser"];
+});
+
+const firstname = (user.value && user.value.firstName) || "";
+const lastname = (user.value && user.value.lastName) || "";
+
 const avatarSrc = require("@/assets/avatar.png");
 </script>
 

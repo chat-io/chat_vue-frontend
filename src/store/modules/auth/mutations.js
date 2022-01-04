@@ -1,7 +1,7 @@
 export default {
   setUser(state, payload) {
-    const { token, userId } = payload;
+    const { token, user } = payload;
     state.token = token;
-    state.userId = userId;
+    state.user = user;
   },
 };
