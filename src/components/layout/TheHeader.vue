@@ -1,5 +1,6 @@
 <template>
   <UserUpdate v-if="isUpdate" @updated="userUpdateHandler" />
+  <UserMenu />
   <header>
     <nav>
       <h1><router-link to="/">Chat.io</router-link></h1>
@@ -19,6 +20,7 @@ import { computed, ref, toRef } from "vue";
 import { useStore } from "vuex";
 
 import UserUpdate from "../user/UserUpdate.vue";
+import UserMenu from "../user/UserMenu.vue";
 
 const store = useStore();
 
