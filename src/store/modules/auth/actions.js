@@ -36,6 +36,15 @@ export default {
     });
     setLocalStorageForUser(setLocalStoragePayload);
   },
+  logout(context) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    context.commit("setUser", {
+      token: null,
+      user: null,
+    });
+  },
   updateUser(context, payload) {
     context.commit("setUser", {
       token: payload.token,
