@@ -1,10 +1,15 @@
 <template>
-  <TheHeader />
+  <TheHeader v-if="isAuthenticated" />
   <router-view></router-view>
 </template>
 
 <script setup>
 // import TestComponent from "./components/TestComponent.vue";
+import { computed } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+const isAuthenticated = computed(() => store.getters["isAuthenticated"]);
 </script>
 
 <style>
