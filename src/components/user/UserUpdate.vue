@@ -72,14 +72,6 @@ const submitForm = async () => {
     const updatedUser = await updateUser(updateData);
     const { token, user } = await updatedUser.data.updateUser;
 
-    console.log(token, user);
-    // console.log(updatedUser.data);
-    // console.log(updatedUser.data.updateUser.user);
-    // // updatedUser = updatedUser.data.updateUser.user;
-    // const updatedToken = updatedUser.data.updateUser.token;
-    // console.log(updatedUser);
-    // console.log(updatedToken);
-
     // vuex state update
     store.dispatch("updateUser", { token, user });
 
