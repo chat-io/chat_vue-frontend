@@ -36,7 +36,15 @@ const lastName = computed(() => {
   return store.getters["getUser"].lastName;
 });
 
-const avatarSrc = require("@/assets/avatar.png");
+const avatar = computed(() => {
+  return store.getters["getUser"].avatar;
+});
+
+//avatar image 관리
+const userId = store.getters["getUser"].id;
+const avatarSrc = avatar.value
+  ? `${process.env.VUE_APP_FILESERVER_URL}/avatar/${userId}`
+  : require("@/assets/avatar.png");
 
 //user menu 관리
 const isMenuVisible = ref(false);
