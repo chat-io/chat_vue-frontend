@@ -23,7 +23,7 @@ const updateUser = () => {
 };
 
 const logoutUser = () => {
-  console.log("logout");
+  emit("logoutUser");
 };
 </script>
 

@@ -1,6 +1,10 @@
 <template>
   <UserUpdate v-if="isUpdate" @updated="userUpdateHandler" />
-  <UserMenu v-if="isMenuVisible" @updateUser="toggleUpdateModal" />
+  <UserMenu
+    v-if="isMenuVisible"
+    @updateUser="toggleUpdateModal"
+    @logoutUser="logoutUser"
+  />
   <header>
     <nav>
       <h1><router-link to="/">Chat.io</router-link></h1>
@@ -18,6 +22,7 @@
 <script setup>
 import { computed, ref, toRef } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 import UserUpdate from "../user/UserUpdate.vue";
 import UserMenu from "../user/UserMenu.vue";
@@ -44,6 +49,13 @@ const isUpdate = ref(false);
 const toggleUpdateModal = () => {
   toggleUserMenu();
   isUpdate.value = !isUpdate.value;
+};
+
+// logout
+const router = useRouter();
+const logoutUser = () => {
+  store.dispatch("logout");
+  router.replace("/auth");
 };
 </script>
 
