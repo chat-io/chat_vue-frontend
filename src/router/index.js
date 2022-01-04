@@ -11,6 +11,7 @@ const routes = [
   {
     path: "/auth",
     component: UserAuth,
+    meta: { requiresUnauth: true },
   },
   {
     path: "/chat",
@@ -31,8 +32,11 @@ const router = createRouter({
 router.beforeEach((to, _, next) => {
   if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
     next("/auth");
+  } else if (to.meta.requiresUnauth && store.getters.isAuthenticated) {
+    next("/chat");
+  } else {
+    next();
   }
-  next();
 });
 
 export default router;
