@@ -24,3 +24,9 @@ onBeforeMount(() => {
   imgSrc.value += `?${new Date().getTime()}`;
 });
 </script>
+
+<style scoped>
+div {
+  width: 100%;
+}
+</style>

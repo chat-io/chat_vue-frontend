@@ -116,8 +116,10 @@ nav .profile-menu {
   display: flex;
   color: white;
   align-self: center;
-  width: 4.5rem;
-  margin-right: 1rem;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  /* margin-right: 1rem; */
 }
 
 .image-container {
@@ -128,7 +130,7 @@ nav .profile-menu {
   padding: 0;
   width: 4rem;
   height: 4rem;
-  border: 2px solid white;
+  border: 1px solid white;
   border-radius: 50%;
   overflow: hidden;
 }
