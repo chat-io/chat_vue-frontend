@@ -2,6 +2,7 @@ import { authUser } from "../../../services/AuthService.js";
 
 import { setLocalStorageForUser } from "../../helper/setLcoalStorage.js";
 import { getAuthDataFromLocalStorage } from "../../helper/getLocalStorage.js";
+import { setDefaultAvatarToFileServer } from "../../helper/setDefaultAvatar.js";
 
 export default {
   async login(context, payload) {
@@ -19,15 +20,27 @@ export default {
   async auth(context, payload) {
     const userData = await authUser(payload);
 
+    const { id, email, firstName, lastName, avatar, gender } =
+      userData.data[payload.mode].user;
+
+    await setDefaultAvatarToFileServer(id);
+
     const setLocalStoragePayload = {
       token: userData.data[payload.mode].token,
       user: {
-        id: userData.data[payload.mode].user.id,
-        email: userData.data[payload.mode].email,
-        firstName: userData.data[payload.mode].user.firstName,
-        lastName: userData.data[payload.mode].user.lastName,
-        avatar: userData.data[payload.mode].avatar,
-        gender: userData.data[payload.mode].user.gender,
+        id,
+        email,
+        firstName,
+        lastName,
+        avatar,
+        gender,
+
+        // id: userData.data[payload.mode].user.id,
+        // email: userData.data[payload.mode].email,
+        // firstName: userData.data[payload.mode].user.firstName,
+        // lastName: userData.data[payload.mode].user.lastName,
+        // avatar: userData.data[payload.mode].avatar,
+        // gender: userData.data[payload.mode].user.gender,
       },
     };
 
@@ -52,11 +65,18 @@ export default {
       user: payload.user,
     });
   },
+  async updateUserAvatar(context, payload) {
+    const response = await fetch(
+      `${process.env.VUE_APP_FILESERVER_URL}/avatar/${context.getters.getUser.id}`,
+      {
+        method: "PUT",
+        body: payload,
+      }
+    );
+  },
   tryLogin(context) {
-    console.log("trylogin");
     const { token, user } = getAuthDataFromLocalStorage();
-    console.log("try login");
-    console.log(token, user);
+
     if (token && user) {
       context.commit("setUser", {
         token,

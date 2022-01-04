@@ -13,10 +13,10 @@
         <label for="lastname">Last Name</label>
         <input type="text" id="lastname" v-model.trim="enteredLastName" />
       </div>
-      <!-- <div class="form-control">
+      <div class="form-control">
         <label for="avatar">Avatar</label>
-        <input type="file" id="avatar" />
-      </div> -->
+        <input type="file" id="avatar" ref="enteredAvatar" />
+      </div>
       <div class="form-control">
         <label for="gender">Gender</label>
         <select id="gender" required="true" v-model="enteredGender">
@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeUpdate, defineEmits } from "vue";
+import { ref, computed, onBeforeUpdate, defineEmits } from "vue";
 import { useStore } from "vuex";
 import { getUserInfoFromLocalStorage } from "..//../util/localStorage/getUserInfo.js";
 import { updateUser } from "../../services/UserService.js";
@@ -43,13 +43,23 @@ const userInfo = getUserInfoFromLocalStorage();
 const enteredPassword = ref("");
 const enteredFirstName = ref(userInfo.firstName);
 const enteredLastName = ref(userInfo.lastName);
-// const enteredAvatar = ref(null);
+const enteredAvatar = ref(null);
 const enteredGender = ref(userInfo.gender);
 
 //submit handler
+const emit = defineEmits(["updated"]);
 const store = useStore();
 const isLoading = ref(false);
 const error = ref(null);
+const userId = computed(() => {
+  return store.getters["getUser"].id;
+});
+
+const updateAvatar = (avatar) => {
+  const formData = new FormData();
+  formData.append("avatar", avatar);
+  store.dispatch("updateUserAvatar", formData);
+};
 
 const submitForm = async () => {
   isLoading.value = true;
@@ -66,6 +76,14 @@ const submitForm = async () => {
   if (enteredLastName.value !== "") {
     updateData.lastName = enteredLastName.value;
   }
+
+  if (enteredAvatar.value.files.length === 1) {
+    updateData.avatar = `${process.env.VUE_APP_FILEFSERVER_URL}/avatar/${userId.value}`;
+
+    const avatar = enteredAvatar.value.files[0];
+    updateAvatar(avatar);
+  }
+
   updateData.gender = enteredGender.value;
 
   try {
@@ -80,13 +98,13 @@ const submitForm = async () => {
     localStorage.setItem("user", JSON.stringify(user));
   } catch (err) {
     error.value = err.message || "Failed to update user.";
-    console.log("error");
     console.log(error);
   }
   isLoading.value = false;
 
   //update complete
   if (!isLoading.value && !error.value) {
+    emit("updated");
     closeWindow();
   }
 };
@@ -96,11 +114,6 @@ const show = ref(true);
 const closeWindow = () => {
   show.value = false;
 };
-
-const emit = defineEmits(["updated"]);
-onBeforeUpdate(() => {
-  //
-});
 </script>
 
 <style scoped>

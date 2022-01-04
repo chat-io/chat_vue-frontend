@@ -1,6 +1,7 @@
 <template>
-  <UserUpdate v-if="isUpdate" @updated="userUpdateHandler" />
+  <UserUpdate v-if="isUpdate" @updated="updated" />
   <UserMenu
+    :key="avatarKey"
     v-if="isMenuVisible"
     @updateUser="toggleUpdateModal"
     @logoutUser="logoutUser"
@@ -10,7 +11,13 @@
       <h1><router-link to="/">Chat.io</router-link></h1>
       <div class="profile-menu" @click="toggleUserMenu">
         <div class="image-container">
-          <img :src="avatarSrc" alt="Avatar" />
+          <!-- <img :src="avatarSrc" alt="Avatar" v-if="!isAvatarOutdated" /> -->
+          <BaseImage
+            :src="avatarSrc"
+            alt="Avatar"
+            :key="avatarKey"
+            class="img"
+          />
         </div>
         <p>{{ firstName }} {{ lastName }}</p>
         <font-awesome-icon icon="caret-down" class="icon"></font-awesome-icon>
@@ -20,12 +27,13 @@
 </template>
 
 <script setup>
-import { computed, ref, toRef } from "vue";
+import { computed, ref, toRef, onBeforeUpdate, onUpdated } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
 import UserUpdate from "../user/UserUpdate.vue";
 import UserMenu from "../user/UserMenu.vue";
+import BaseImage from "../ui/BaseImage.vue";
 
 const store = useStore();
 
@@ -36,7 +44,22 @@ const lastName = computed(() => {
   return store.getters["getUser"].lastName;
 });
 
-const avatarSrc = require("@/assets/avatar.png");
+const avatar = computed(() => {
+  return store.getters["getUser"].avatar;
+});
+
+//avatar image upate 관리
+const userId = store.getters["getUser"].id;
+const isAvatarOutdated = ref(false);
+
+let avatarSrc = avatar.value
+  ? `${process.env.VUE_APP_FILESERVER_URL}/avatar/${userId}.png`
+  : require("@/assets/avatar.png");
+
+const avatarKey = ref(0);
+const updated = () => {
+  avatarKey.value += 1;
+};
 
 //user menu 관리
 const isMenuVisible = ref(false);
@@ -89,12 +112,14 @@ nav .profile-menu {
   z-index: 10;
 }
 
-nav .profile-menu img {
+.img {
   display: flex;
   color: white;
   align-self: center;
-  width: 4.5rem;
-  margin-right: 1rem;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  /* margin-right: 1rem; */
 }
 
 .image-container {
@@ -105,7 +130,7 @@ nav .profile-menu img {
   padding: 0;
   width: 4rem;
   height: 4rem;
-  border: 2px solid white;
+  border: 1px solid white;
   border-radius: 50%;
   overflow: hidden;
 }
