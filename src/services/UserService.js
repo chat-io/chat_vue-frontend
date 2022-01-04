@@ -11,7 +11,6 @@ import { updateUserMutation } from "./mutation/userMutation.js";
 // };
 
 const updateUser = async (payload) => {
-  console.log("UserService - updateUser called.");
   const response = await apolloClient.mutate({
     mutation: updateUserMutation(payload),
   });

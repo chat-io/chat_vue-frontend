@@ -52,11 +52,18 @@ export default {
       user: payload.user,
     });
   },
+  async updateUserAvatar(context, payload) {
+    const response = await fetch(
+      `${process.env.VUE_APP_FILESERVER_URL}/avatar/${context.getters.getUser.id}`,
+      {
+        method: "PUT",
+        body: payload,
+      }
+    );
+  },
   tryLogin(context) {
-    console.log("trylogin");
     const { token, user } = getAuthDataFromLocalStorage();
-    console.log("try login");
-    console.log(token, user);
+
     if (token && user) {
       context.commit("setUser", {
         token,
