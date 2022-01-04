@@ -9,6 +9,9 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
+
+store.dispatch("tryLogin");
+
 const isAuthenticated = computed(() => store.getters["isAuthenticated"]);
 </script>
 

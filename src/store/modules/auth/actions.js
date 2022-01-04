@@ -1,6 +1,7 @@
 import { authUser } from "../../../services/AuthService.js";
 
 import { setLocalStorageForUser } from "../../helper/setLcoalStorage.js";
+import { getAuthDataFromLocalStorage } from "../../helper/getLocalStorage.js";
 
 export default {
   async login(context, payload) {
@@ -50,5 +51,17 @@ export default {
       token: payload.token,
       user: payload.user,
     });
+  },
+  tryLogin(context) {
+    console.log("trylogin");
+    const { token, user } = getAuthDataFromLocalStorage();
+    console.log("try login");
+    console.log(token, user);
+    if (token && user) {
+      context.commit("setUser", {
+        token,
+        user,
+      });
+    }
   },
 };
