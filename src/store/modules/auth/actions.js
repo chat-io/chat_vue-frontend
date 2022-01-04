@@ -1,4 +1,5 @@
 import { authUser } from "../../../services/AuthService.js";
+
 import { setLocalStorageForUser } from "../../helper/setLcoalStorage.js";
 
 export default {
@@ -24,13 +25,14 @@ export default {
         email: userData.data[payload.mode].email,
         firstName: userData.data[payload.mode].user.firstName,
         lastName: userData.data[payload.mode].user.lastName,
+        avatar: userData.data[payload.mode].avatar,
         gender: userData.data[payload.mode].user.gender,
       },
     };
 
     context.commit("setUser", {
       token: setLocalStoragePayload.token,
-      userId: setLocalStoragePayload.id,
+      user: setLocalStoragePayload.user,
     });
     setLocalStorageForUser(setLocalStoragePayload);
   },

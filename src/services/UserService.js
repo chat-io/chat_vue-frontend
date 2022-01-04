@@ -1,14 +1,22 @@
 import apolloClient from "./apollo-client";
-import usersQuery from "./query/users.js";
+// import usersQuery from "./query/users.js";
+import { updateUserMutation } from "./mutation/userMutation.js";
 
-const getUsers = async () => {
-  const response = await apolloClient.query({
-    query: usersQuery(),
+// const getUsers = async () => {
+//   const response = await apolloClient.query({
+//     query: usersQuery(),
+//   });
+
+//   return response;
+// };
+
+const updateUser = async (payload) => {
+  console.log("UserService - updateUser called.");
+  const response = await apolloClient.mutate({
+    mutation: updateUserMutation(payload),
   });
 
   return response;
 };
 
-const UserService = { getUsers };
-
-export default UserService;
+export { updateUser };

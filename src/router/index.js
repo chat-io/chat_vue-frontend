@@ -7,7 +7,7 @@ import store from "../store/index";
 
 // import App from "../App.vue";
 const routes = [
-  { path: "/", redirect: "/login" },
+  { path: "/", redirect: "/auth" },
   {
     path: "/auth",
     component: UserAuth,
@@ -30,7 +30,6 @@ const router = createRouter({
 
 router.beforeEach((to, _, next) => {
   if (to.meta.requiresAuth && !store.getters.isAuthenticated) {
-    console.log("require auth");
     next("/auth");
   }
   next();

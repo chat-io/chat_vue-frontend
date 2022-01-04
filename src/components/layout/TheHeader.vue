@@ -1,12 +1,13 @@
 <template>
+  <UserUpdate v-if="isUpdate" @updated="userUpdateHandler" />
   <header>
     <nav>
       <h1><router-link to="/">Chat.io</router-link></h1>
-      <div class="profile-menu">
+      <div class="profile-menu" @click="toggleUpdateModal">
         <div class="image-container">
           <img :src="avatarSrc" alt="Avatar" />
         </div>
-        <p>{{ firstname }} {{ lastname }}</p>
+        <p>{{ firstName }} {{ lastName }}</p>
         <font-awesome-icon icon="caret-down" class="icon"></font-awesome-icon>
       </div>
     </nav>
@@ -14,9 +15,27 @@
 </template>
 
 <script setup>
-const firstname = "fisrtname";
-const lastname = "lastname";
+import { computed, ref, toRef } from "vue";
+import { useStore } from "vuex";
+
+import UserUpdate from "../user/UserUpdate.vue";
+
+const store = useStore();
+
+const firstName = computed(() => {
+  return store.getters["getUser"].firstName;
+});
+const lastName = computed(() => {
+  return store.getters["getUser"].lastName;
+});
+
 const avatarSrc = require("@/assets/avatar.png");
+
+// update modal 관리
+const isUpdate = ref(false);
+const toggleUpdateModal = () => {
+  isUpdate.value = !isUpdate.value;
+};
 </script>
 
 <style scoped>
