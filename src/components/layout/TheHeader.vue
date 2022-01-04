@@ -1,6 +1,6 @@
 <template>
   <UserUpdate v-if="isUpdate" @updated="userUpdateHandler" />
-  <UserMenu v-if="isMenuVisible" />
+  <UserMenu v-if="isMenuVisible" @updateUser="toggleUpdateModal" />
   <header>
     <nav>
       <h1><router-link to="/">Chat.io</router-link></h1>
@@ -42,6 +42,7 @@ const toggleUserMenu = () => {
 // update modal 관리
 const isUpdate = ref(false);
 const toggleUpdateModal = () => {
+  toggleUserMenu();
   isUpdate.value = !isUpdate.value;
 };
 </script>
@@ -73,7 +74,7 @@ nav .profile-menu {
   align-items: center;
   position: relative;
   cursor: pointer;
-  z-index: 100;
+  z-index: 10;
 }
 
 nav .profile-menu img {

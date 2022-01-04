@@ -15,9 +15,11 @@
 
 <script setup>
 //
+import { defineEmits } from "vue";
 
+const emit = defineEmits(["updateUser", "logoutUser"]);
 const updateUser = () => {
-  console.log("update");
+  emit("updateUser");
 };
 
 const logoutUser = () => {
