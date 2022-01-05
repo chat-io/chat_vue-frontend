@@ -55,7 +55,7 @@ watch(() => {
 
 const chatSelected = (chat) => {
   store.dispatch("chat/setCurrentChat", chat);
-  console.log(store.getters["chat/getCurrentChat"]);
+  // console.log(store.getters["chat/getCurrentChat"]);
 };
 </script>
 

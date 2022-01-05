@@ -1,13 +1,21 @@
 <template>
   <BaseCard>
     <div class="messenger">
-      <h1>Messenger Container</h1>
+      <h1>{{ chat.id }}</h1>
+      <p>{{ chat.users[0].email }}</p>
     </div>
   </BaseCard>
 </template>
 
 <script setup>
-console.log("the messenger");
+import { computed } from "vue";
+import { useStore } from "vuex";
+
+const store = useStore();
+
+const chat = computed(() => {
+  return store.getters["chat/getCurrentChat"];
+});
 </script>
 
 <style scoped>
@@ -19,5 +27,6 @@ console.log("the messenger");
   margin-bottom: 1rem;
   padding-top: 0;
   height: 80vh;
+  align-items: center;
 }
 </style>
