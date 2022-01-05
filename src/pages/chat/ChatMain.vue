@@ -1,24 +1,21 @@
 <template>
-  <h1>Chat Main</h1>
+  <div class="friend-list">
+    <FriendsList />
+  </div>
 </template>
 
 <script setup>
-import { computed } from "vue";
-import { useStore } from "vuex";
+import { computed, onBeforeMount, on } from "vue";
 
-const store = useStore();
-
-//temporarily 4 is userId.
-await store.dispatch("chat/fetchChats", 4);
-const chats = computed(() => {
-  return store.getters["chat/getChats"];
-});
-
-console.log(chats.value);
+import FriendsList from "../../components/chat/friend/FirendsList.vue";
 </script>
 
 <style scoped>
 h1 {
   align-self: center;
+}
+.friend-list {
+  width: 30%;
+  margin-left: 2rem;
 }
 </style>
