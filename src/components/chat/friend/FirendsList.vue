@@ -10,7 +10,12 @@
 
       <div class="firend-box">
         <div v-if="hasFriends">
-          <TheFriend v-for="chat in chats" :chat="chat" :key="chat.id" />
+          <TheFriend
+            v-for="chat in chats"
+            :chat="chat"
+            :key="chat.id"
+            @chatSelected="chatSelected"
+          />
         </div>
         <div v-else>
           <p>No friends.</p>
@@ -47,6 +52,11 @@ watch(() => {
   }
   console.log(hasFriends.value);
 });
+
+const chatSelected = (chat) => {
+  store.dispatch("chat/setCurrentChat", chat);
+  console.log(store.getters["chat/getCurrentChat"]);
+};
 </script>
 
 <style scoped>

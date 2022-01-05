@@ -7,4 +7,7 @@ export default {
 
     context.commit("setChats", chats);
   },
+  setCurrentChat(context, payload) {
+    context.commit("setCurrentChat", payload);
+  },
 };
