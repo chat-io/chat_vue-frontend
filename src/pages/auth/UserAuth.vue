@@ -60,8 +60,6 @@ import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-// import { setUserInfoInLocalStorage } from "../../util/localStorage/getUserInfo.js";
-
 const loginImageSrc = require("@/assets/login.svg");
 const signupImageSrc = require("@/assets/signup.svg");
 

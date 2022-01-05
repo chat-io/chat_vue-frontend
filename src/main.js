@@ -11,7 +11,6 @@ import BaseDialog from "./components/ui/BaseDialog.vue";
 import BaseSpinner from "./components/ui/BaseSpinner.vue";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-// import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
