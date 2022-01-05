@@ -1,5 +1,5 @@
 <template>
-  <UserUpdate v-if="isUpdate" @updated="updated" />
+  <UserUpdate v-if="isUpdate" @updated="updated" @closed="closed" />
   <UserMenu
     :key="avatarKey"
     v-if="isMenuVisible"
@@ -27,13 +27,23 @@
 </template>
 
 <script setup>
-import { computed, ref, toRef, onBeforeUpdate, onUpdated } from "vue";
+import {
+  computed,
+  ref,
+  toRef,
+  onBeforeUpdate,
+  onUpdated,
+  defineAsyncComponent,
+} from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-import UserUpdate from "../user/UserUpdate.vue";
-import UserMenu from "../user/UserMenu.vue";
+// import UserUpdate from "../user/UserUpdate.vue";
+// import UserMenu from "../user/UserMenu.vue";
 import BaseImage from "../ui/BaseImage.vue";
+
+const UserUpdate = defineAsyncComponent(() => import("../user/UserUpdate.vue"));
+const UserMenu = defineAsyncComponent(() => import("../user/UserMenu.vue"));
 
 const store = useStore();
 
@@ -72,6 +82,10 @@ const isUpdate = ref(false);
 const toggleUpdateModal = () => {
   toggleUserMenu();
   isUpdate.value = !isUpdate.value;
+};
+
+const closed = () => {
+  isUpdate.value = false;
 };
 
 // logout

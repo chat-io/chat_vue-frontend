@@ -50,7 +50,7 @@ const enteredAvatar = ref(null);
 const enteredGender = ref(userInfo.gender);
 
 //submit handler
-const emit = defineEmits(["updated"]);
+const emit = defineEmits(["updated", "closed"]);
 const store = useStore();
 const isLoading = ref(false);
 const error = ref(null);
@@ -117,6 +117,7 @@ const show = ref(true);
 
 const closeWindow = () => {
   show.value = false;
+  emit("closed");
 };
 </script>
 
