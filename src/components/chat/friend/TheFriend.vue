@@ -26,8 +26,19 @@ const props = defineProps({
   },
 });
 
-const { firstName, lastName } = toRefs(props.chat.users[0]);
-const { id, messages } = toRefs(props.chat);
+const { chat } = toRefs(props);
+const firstName = computed(() => {
+  return chat.value.users[0].firstName;
+});
+const lastName = computed(() => {
+  return chat.value.users[0].lastName;
+});
+const id = computed(() => {
+  return chat.value.id;
+});
+const messages = computed(() => {
+  return chat.value.messages;
+});
 
 const currentChat = computed(() => {
   return store.getters["chat/getCurrentChat"];
