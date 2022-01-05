@@ -2,8 +2,9 @@ import { fetchChatsFromBackend } from "../../../services/ChatService.js";
 
 export default {
   async fetchChats(context, payload) {
-    const chats = await fetchChatsFromBackend(payload);
+    let chats = await fetchChatsFromBackend(payload);
+    chats = chats.data.chats;
 
-    console.log(chats);
+    context.commit("setChats", chats);
   },
 };
