@@ -34,13 +34,6 @@ export default {
         lastName,
         avatar,
         gender,
-
-        // id: userData.data[payload.mode].user.id,
-        // email: userData.data[payload.mode].email,
-        // firstName: userData.data[payload.mode].user.firstName,
-        // lastName: userData.data[payload.mode].user.lastName,
-        // avatar: userData.data[payload.mode].avatar,
-        // gender: userData.data[payload.mode].user.gender,
       },
     };
 
