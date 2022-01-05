@@ -5,52 +5,54 @@
   <BaseDialog :show="isLoading" title="Authenticating..." fixed>
     <BaseSpinner />
   </BaseDialog>
-  <BaseCard>
-    <div class="img-container">
-      <img :src="loginImageSrc" v-if="!isSignup" />
-      <img :src="signupImageSrc" v-else />
-    </div>
-
-    <h1 class="page-title">{{ pageTitle }}</h1>
-    <form @submit.prevent="submitForm">
-      <div class="form-control">
-        <label for="email">E-Mail</label>
-        <input type="text" id="email" v-model="enteredEmail" />
-      </div>
-      <div class="form-control">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="enteredPassword" />
+  <div class="auth-container">
+    <BaseCard>
+      <div class="img-container">
+        <img :src="loginImageSrc" v-if="!isSignup" />
+        <img :src="signupImageSrc" v-else />
       </div>
 
-      <!-- signup  -->
-      <div class="signup-form" v-if="isSignup">
+      <h1 class="page-title">{{ pageTitle }}</h1>
+      <form @submit.prevent="submitForm">
         <div class="form-control">
-          <label for="firstname">First Name</label>
-          <input type="text" id="firstname" v-model="enteredFirstName" />
+          <label for="email">E-Mail</label>
+          <input type="text" id="email" v-model="enteredEmail" />
         </div>
         <div class="form-control">
-          <label for="lastname">Last Name</label>
-          <input type="text" id="lastname" v-model="enteredLastName" />
+          <label for="password">Password</label>
+          <input type="password" id="password" v-model="enteredPassword" />
         </div>
-        <div class="form-control">
-          <label for="gender">Gender</label>
-          <select id="gender" required="true" v-model="enteredGender">
-            <option value="male">Male</option>
-            <option value="femail">Female</option>
-          </select>
-        </div>
-      </div>
 
-      <div class="actions">
-        <BaseButton>{{ pageTitle }}</BaseButton>
+        <!-- signup  -->
+        <div class="signup-form" v-if="isSignup">
+          <div class="form-control">
+            <label for="firstname">First Name</label>
+            <input type="text" id="firstname" v-model="enteredFirstName" />
+          </div>
+          <div class="form-control">
+            <label for="lastname">Last Name</label>
+            <input type="text" id="lastname" v-model="enteredLastName" />
+          </div>
+          <div class="form-control">
+            <label for="gender">Gender</label>
+            <select id="gender" required="true" v-model="enteredGender">
+              <option value="male">Male</option>
+              <option value="femail">Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <BaseButton>{{ pageTitle }}</BaseButton>
+        </div>
+      </form>
+      <div class="to-signup actions">
+        <BaseButton mode="flat" @click="toggleAuthMode">
+          {{ toggleAuthModeButtonText }}
+        </BaseButton>
       </div>
-    </form>
-    <div class="to-signup actions">
-      <BaseButton mode="flat" @click="toggleAuthMode">
-        {{ toggleAuthModeButtonText }}
-      </BaseButton>
-    </div>
-  </BaseCard>
+    </BaseCard>
+  </div>
 </template>
 
 <script setup>
@@ -190,5 +192,12 @@ input:focus {
 .page-title {
   display: flex;
   justify-content: center;
+}
+
+.auth-container {
+  display: flex;
+  margin: auto;
+  margin-top: 3%;
+  width: 50%;
 }
 </style>

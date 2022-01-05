@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onBeforeMount } from "vue";
+import { ref, watch, computed, onBeforeMount, onMounted } from "vue";
 import { useStore } from "vuex";
 
 import TheFriend from "./TheFriend.vue";
@@ -36,7 +36,7 @@ const chats = computed(() => {
   return store.getters["chat/getChats"];
 });
 
-onBeforeMount(async () => {
+onMounted(async () => {
   const userId = JSON.parse(localStorage.getItem("user")).id;
   await store.dispatch("chat/fetchChats", userId);
   console.log(chats.value);
