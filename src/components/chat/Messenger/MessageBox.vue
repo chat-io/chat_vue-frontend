@@ -1,5 +1,5 @@
 <template>
-  <div class="message-container">
+  <div class="message-container" v-if="!isEmpty">
     <TheMessage
       v-for="(message, index) in chat.messages"
       :key="message.id"
@@ -9,6 +9,7 @@
       :chat="chat"
     ></TheMessage>
   </div>
+  <p v-else>No messages.</p>
 </template>
 
 <script setup>
@@ -32,8 +33,9 @@ const userId = computed(() => {
   return store.getters["getUser"].id;
 });
 
-const { messages } = toRefs(props.chat);
-console.log(messages);
+const isEmpty = computed(() => {
+  return chat.value.messages.length === 0;
+});
 </script>
 
 <style scoped>
@@ -41,8 +43,6 @@ console.log(messages);
   display: flex;
   flex-direction: column-reverse;
   scroll-behavior: auto;
-  /* flex-grow: 2; */
-  /* height: 0; */
   overflow-y: scroll;
 }
 </style>
