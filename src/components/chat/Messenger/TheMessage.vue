@@ -24,7 +24,6 @@ const props = defineProps({
 });
 
 const { chat } = toRefs(props);
-console.log(chat.value);
 const sender = chat.value.users.filter((user) => {
   return user.id === props.message.fromUserId.id;
 })[0];

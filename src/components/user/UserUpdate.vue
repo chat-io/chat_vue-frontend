@@ -98,7 +98,6 @@ const submitForm = async () => {
     localStorage.setItem("user", JSON.stringify(user));
   } catch (err) {
     error.value = err.message || "Failed to update user.";
-    console.log(error);
   }
   isLoading.value = false;
 

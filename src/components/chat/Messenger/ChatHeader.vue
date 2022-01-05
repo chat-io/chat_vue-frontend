@@ -9,7 +9,7 @@
 <script setup>
 import { computed, toRefs, defineProps } from "vue";
 import { useStore } from "vuex";
-console.log("header");
+
 const store = useStore();
 const props = defineProps({
   chat: {

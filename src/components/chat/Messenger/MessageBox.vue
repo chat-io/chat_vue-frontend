@@ -33,7 +33,6 @@ const userId = computed(() => {
 });
 
 const { messages } = toRefs(props.chat);
-console.log(messages);
 </script>
 
 <style scoped>
