@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="message-container">
     <TheMessage
       v-for="(message, index) in chat.messages"
       :key="message.id"
@@ -37,8 +37,12 @@ console.log(messages);
 </script>
 
 <style scoped>
-.container {
+.message-container {
   display: flex;
   flex-direction: column-reverse;
+  scroll-behavior: auto;
+  /* flex-grow: 2; */
+  /* height: 0; */
+  overflow-y: scroll;
 }
 </style>

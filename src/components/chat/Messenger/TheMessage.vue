@@ -41,7 +41,7 @@ const owner = computed(() => {
   border-radius: 15px;
   width: 70vw;
   margin: 1rem;
-  padding: 0.25rem 2rem;
+  padding: 1rem 2rem;
   background-color: rgb(221, 217, 217);
 }
 
