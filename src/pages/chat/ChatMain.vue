@@ -3,7 +3,11 @@
 </template>
 
 <script setup>
-//
+import { useStore } from "vuex";
+
+const store = useStore();
+
+await store.dispatch("chat/fetchChats", 4);
 </script>
 
 <style scoped>
