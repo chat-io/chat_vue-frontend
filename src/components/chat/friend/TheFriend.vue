@@ -37,8 +37,6 @@ const isChatOpen = computed(() => {
   return currentChat.value.id === id.value ? "opened" : "";
 });
 
-console.log(isChatOpen.value);
-
 const lastMessage = computed(() => {
   return messages.value.length === 0
     ? ""
@@ -46,7 +44,6 @@ const lastMessage = computed(() => {
 });
 
 const chatSelected = () => {
-  console.log(`chat ${id.value} selected`);
   emit("chatSelected", props.chat);
 };
 </script>

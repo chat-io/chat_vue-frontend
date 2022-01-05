@@ -5,7 +5,6 @@ import NotFound from "../pages/NotFound.vue";
 
 import store from "../store/index";
 
-// import App from "../App.vue";
 const routes = [
   { path: "/", redirect: "/auth" },
   {

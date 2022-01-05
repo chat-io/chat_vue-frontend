@@ -39,7 +39,6 @@ const chats = computed(() => {
 onMounted(async () => {
   const userId = JSON.parse(localStorage.getItem("user")).id;
   await store.dispatch("chat/fetchChats", userId);
-  console.log(chats.value);
 });
 
 const hasFriends = ref(false);
@@ -50,12 +49,10 @@ watch(() => {
   } else {
     hasFriends.value = false;
   }
-  console.log(hasFriends.value);
 });
 
 const chatSelected = (chat) => {
   store.dispatch("chat/setCurrentChat", chat);
-  // console.log(store.getters["chat/getCurrentChat"]);
 };
 </script>
 

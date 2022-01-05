@@ -29,7 +29,6 @@ const chat = computed(() => {
 });
 
 const isChatActive = computed(() => {
-  console.log(isChatActive);
   return Object.keys(chat.value).length > 0;
 });
 </script>
