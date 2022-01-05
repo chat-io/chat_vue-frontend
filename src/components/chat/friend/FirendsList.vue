@@ -1,4 +1,7 @@
 <template>
+  <BaseDialog :show="isLoading" title="Loading..." fixed>
+    <BaseSpinner />
+  </BaseDialog>
   <BaseCard>
     <div class="friends">
       <div class="title">
@@ -36,9 +39,13 @@ const chats = computed(() => {
   return store.getters["chat/getChats"];
 });
 
+const isLoading = ref(false);
+
 onMounted(async () => {
+  isLoading.value = true;
   const userId = JSON.parse(localStorage.getItem("user")).id;
   await store.dispatch("chat/fetchChats", userId);
+  isLoading.value = false;
 });
 
 const hasFriends = ref(false);

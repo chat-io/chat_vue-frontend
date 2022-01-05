@@ -1,4 +1,7 @@
 <template>
+  <BaseDialog :show="isLoading" title="Updating User Info..." fixed>
+    <BaseSpinner />
+  </BaseDialog>
   <BaseDialog :show="show" title="User Update" @close="closeWindow">
     <form>
       <div class="form-control">
@@ -62,6 +65,7 @@ const updateAvatar = (avatar) => {
 };
 
 const submitForm = async () => {
+  closeWindow();
   isLoading.value = true;
   const updateData = {
     ...userInfo,
@@ -87,6 +91,7 @@ const submitForm = async () => {
   updateData.gender = enteredGender.value;
 
   try {
+    isLoading.value = true;
     const updatedUser = await updateUser(updateData);
     const { token, user } = await updatedUser.data.updateUser;
 
