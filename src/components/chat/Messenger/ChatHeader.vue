@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="chatter-info" v-for="user in users" :key="user.id">
+    <div class="chatter-info" v-for="user in chat.users" :key="user.id">
       <h3>{{ user.firstName }} {{ user.lastName }}</h3>
     </div>
   </div>
@@ -9,7 +9,7 @@
 <script setup>
 import { computed, toRefs, defineProps } from "vue";
 import { useStore } from "vuex";
-
+console.log("header");
 const store = useStore();
 const props = defineProps({
   chat: {
@@ -22,8 +22,7 @@ const userId = computed(() => {
   return store.getter["getUser"].id;
 });
 
-const { users } = toRefs(props.chat);
-console.log(users);
+const { chat } = toRefs(props);
 </script>
 
 <style scoped>
