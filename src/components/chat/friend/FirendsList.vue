@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed, onBeforeMount, onMounted } from "vue";
+import { ref, watchEffect, computed, onBeforeMount, onMounted } from "vue";
 import { useStore } from "vuex";
 
 import TheFriend from "./TheFriend.vue";
@@ -50,7 +50,7 @@ onMounted(async () => {
 
 const hasFriends = ref(false);
 
-watch(() => {
+watchEffect(() => {
   if (chats.value.length > 0) {
     hasFriends.value = true;
   } else {
