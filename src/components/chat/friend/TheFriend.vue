@@ -15,6 +15,7 @@
 <script setup>
 import { defineProps, toRefs, computed } from "vue";
 import { useStore, defineEmits } from "vuex";
+import useUser from "../../../hook/user.js";
 
 const store = useStore();
 
@@ -28,9 +29,10 @@ const props = defineProps({
 
 const { chat } = toRefs(props);
 
-const userId = computed(() => {
-  return store.getters["getUser"].id;
-});
+const { userId } = useUser();
+// const userId = computed(() => {
+//   return store.getters["getUser"].id;
+// });
 
 const partner = chat.value.users.find((user) => {
   return user.id !== userId.value;

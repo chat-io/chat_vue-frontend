@@ -36,6 +36,7 @@ import {
 } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import useUser from "../../hook/user.js";
 
 import BaseImage from "../ui/BaseImage.vue";
 
@@ -44,23 +45,25 @@ const UserMenu = defineAsyncComponent(() => import("../user/UserMenu.vue"));
 
 const store = useStore();
 
-const firstName = computed(() => {
-  return store.getters["getUser"].firstName;
-});
-const lastName = computed(() => {
-  return store.getters["getUser"].lastName;
-});
+const { userId, firstName, lastName, avatar } = useUser();
 
-const avatar = computed(() => {
-  return store.getters["getUser"].avatar;
-});
+// const firstName = computed(() => {
+//   return store.getters["getUser"].firstName;
+// });
+// const lastName = computed(() => {
+//   return store.getters["getUser"].lastName;
+// });
+
+// const avatar = computed(() => {
+//   return store.getters["getUser"].avatar;
+// });
 
 //avatar image upate 관리
-const userId = store.getters["getUser"].id;
+// const userId = store.getters["getUser"].id;
 const isAvatarOutdated = ref(false);
 
 let avatarSrc = avatar.value
-  ? `${process.env.VUE_APP_FILESERVER_URL}/avatar/${userId}.png`
+  ? `${process.env.VUE_APP_FILESERVER_URL}/avatar/${userId.value}.png`
   : require("@/assets/avatar.png");
 
 const avatarKey = ref(0);

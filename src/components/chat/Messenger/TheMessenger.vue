@@ -17,6 +17,7 @@
 <script setup>
 import { ref, computed, onBeforeUpdate } from "vue";
 import { useStore } from "vuex";
+import useUser from "../../../hook/user.js";
 
 import ChatHeader from "./ChatHeader.vue";
 import MessageBox from "./MessageBox.vue";
@@ -28,9 +29,10 @@ const chat = computed(() => {
   return store.getters["chat/getCurrentChat"];
 });
 
-const userId = computed(() => {
-  return store.getters["getUser"].id;
-});
+const { userId } = useUser();
+// const userId = computed(() => {
+//   return store.getters["getUser"].id;
+// });
 
 const isChatActive = computed(() => {
   return Object.keys(chat.value).length > 0;

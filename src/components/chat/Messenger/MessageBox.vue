@@ -15,6 +15,7 @@
 <script setup>
 import { computed, toRefs, defineProps } from "vue";
 import { useStore } from "vuex";
+import useUser from "../../../hook/user.js";
 
 import TheMessage from "./TheMessage.vue";
 
@@ -29,9 +30,10 @@ const props = defineProps({
 
 const { chat } = toRefs(props);
 
-const userId = computed(() => {
-  return store.getters["getUser"].id;
-});
+const { userId } = useUser();
+// const userId = computed(() => {
+//   return store.getters["getUser"].id;
+// });
 
 const isEmpty = computed(() => {
   return chat.value.messages.length === 0;
