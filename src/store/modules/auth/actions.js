@@ -24,6 +24,7 @@ export default {
       userData.data[payload.mode].user;
 
     if (payload.mode === "signup") {
+      console.log("default data set");
       await setDefaultAvatarToFileServer(id);
     }
 
