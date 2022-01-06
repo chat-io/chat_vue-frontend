@@ -5,7 +5,7 @@
         <ChatHeader :chat="chat" />
       </header>
       <hr />
-      <MessageBox :chat="chat" />
+      <MessageBox :chat="chat" :key="userId" />
       <MessageInput :chat="chat" />
     </div>
     <div class="messenger-container" v-else>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { ref, computed, onBeforeUpdate } from "vue";
 import { useStore } from "vuex";
 
 import ChatHeader from "./ChatHeader.vue";
@@ -26,6 +26,10 @@ const store = useStore();
 
 const chat = computed(() => {
   return store.getters["chat/getCurrentChat"];
+});
+
+const userId = computed(() => {
+  return store.getters["getUser"].id;
 });
 
 const isChatActive = computed(() => {

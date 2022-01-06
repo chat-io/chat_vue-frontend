@@ -38,7 +38,7 @@ const owner = computed(() => {
   display: flex;
   flex-direction: column;
   border-radius: 15px;
-  width: 70vw;
+  width: 65vw;
   margin: 1rem;
   padding: 1rem 2rem;
   background-color: rgb(221, 217, 217);
@@ -48,9 +48,5 @@ const owner = computed(() => {
   display: flex;
   align-items: flex-end;
   background-color: #ff7f0f;
-}
-
-h3 {
-  margin-bottom: 0.1rem;
 }
 </style>

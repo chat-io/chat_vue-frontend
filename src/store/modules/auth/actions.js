@@ -51,6 +51,9 @@ export default {
       token: null,
       user: null,
     });
+
+    context.commit("chat/setChats", []);
+    context.commit("chat/setCurrentChat", {});
   },
   updateUser(context, payload) {
     context.commit("setUser", {
