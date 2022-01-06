@@ -40,6 +40,9 @@ import { ref, computed, onBeforeUpdate, defineEmits } from "vue";
 import { useStore } from "vuex";
 import { getUserInfoFromLocalStorage } from "..//../util/localStorage/getUserInfo.js";
 import { updateUser } from "../../services/UserService.js";
+
+import useUser from "../../hook/user.js";
+
 const userInfo = getUserInfoFromLocalStorage();
 
 // user update input initialization
@@ -54,9 +57,11 @@ const emit = defineEmits(["updated", "closed"]);
 const store = useStore();
 const isLoading = ref(false);
 const error = ref(null);
-const userId = computed(() => {
-  return store.getters["getUser"].id;
-});
+
+const { userId } = useUser();
+// const userId = computed(() => {
+//   return store.getters["getUser"].id;
+// });
 
 const updateAvatar = (avatar) => {
   const formData = new FormData();

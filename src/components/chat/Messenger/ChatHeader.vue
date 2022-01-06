@@ -7,6 +7,7 @@
 <script setup>
 import { computed, watch, toRefs, defineProps } from "vue";
 import { useStore } from "vuex";
+import useUser from "../../../hook/user.js";
 
 const store = useStore();
 const props = defineProps({
@@ -18,9 +19,10 @@ const props = defineProps({
 
 const { chat } = toRefs(props);
 
-const userId = computed(() => {
-  return store.getters["getUser"].id;
-});
+const { userId } = useUser();
+// const userId = computed(() => {
+//   return store.getters["getUser"].id;
+// });
 
 const partner = computed(() => {
   return chat.value.users.find((user) => {
