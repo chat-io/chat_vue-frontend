@@ -11,7 +11,6 @@
       <h1><router-link to="/">Chat.io</router-link></h1>
       <div class="profile-menu" @click="toggleUserMenu">
         <div class="image-container">
-          <!-- <img :src="avatarSrc" alt="Avatar" v-if="!isAvatarOutdated" /> -->
           <BaseImage
             :src="avatarSrc"
             alt="Avatar"

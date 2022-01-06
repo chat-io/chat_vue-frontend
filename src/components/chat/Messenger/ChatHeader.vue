@@ -1,13 +1,11 @@
 <template>
   <div class="container">
-    <div class="chatter-info" v-for="user in chat.users" :key="user.id">
-      <h3>{{ user.firstName }} {{ user.lastName }}</h3>
-    </div>
+    <h3>{{ partner.firstName }} {{ partner.lastName }}</h3>
   </div>
 </template>
 
 <script setup>
-import { computed, toRefs, defineProps } from "vue";
+import { computed, watch, toRefs, defineProps } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
@@ -18,11 +16,17 @@ const props = defineProps({
   },
 });
 
+const { chat } = toRefs(props);
+
 const userId = computed(() => {
-  return store.getter["getUser"].id;
+  return store.getters["getUser"].id;
 });
 
-const { chat } = toRefs(props);
+const partner = computed(() => {
+  return chat.value.users.find((user) => {
+    return user.id !== userId.value;
+  });
+});
 </script>
 
 <style scoped>
@@ -35,6 +39,7 @@ const { chat } = toRefs(props);
 
 h3 {
   margin-right: 1rem;
+  font-size: 1.75rem;
 }
 
 .chatter-info {

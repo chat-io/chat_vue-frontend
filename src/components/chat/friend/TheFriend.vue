@@ -2,10 +2,10 @@
   <BaseCard @click="chatSelected">
     <div class="friend-item" :class="isChatOpen">
       <div class="img-container">
-        <img :src="chat.users[0].avatar" alt="avatar" />
+        <img :src="partner.avatar" alt="avatar" />
       </div>
       <div class="friend-info">
-        <h4>{{ firstName }} {{ lastName }}</h4>
+        <h4>{{ partner.firstName }} {{ partner.lastName }}</h4>
         <h5>{{ lastMessage }}</h5>
       </div>
     </div>
@@ -27,12 +27,15 @@ const props = defineProps({
 });
 
 const { chat } = toRefs(props);
-const firstName = computed(() => {
-  return chat.value.users[0].firstName;
+
+const userId = computed(() => {
+  return store.getters["getUser"].id;
 });
-const lastName = computed(() => {
-  return chat.value.users[0].lastName;
+
+const partner = chat.value.users.find((user) => {
+  return user.id !== userId.value;
 });
+
 const id = computed(() => {
   return chat.value.id;
 });
@@ -49,9 +52,7 @@ const isChatOpen = computed(() => {
 });
 
 const lastMessage = computed(() => {
-  return messages.value.length === 0
-    ? ""
-    : messages.value[messages.value.length - 1].message;
+  return messages.value.length === 0 ? "" : messages.value[0].message;
 });
 
 const chatSelected = () => {

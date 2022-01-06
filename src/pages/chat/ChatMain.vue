@@ -10,9 +10,9 @@
 </template>
 
 <script setup>
-import { computed, onBeforeMount, on } from "vue";
+// import { computed, defineProps, toRefs } from "vue";
 
-import FriendsList from "../../components/chat/friend/FirendsList.vue";
+import FriendsList from "../../components/chat/Friend/FirendsList.vue";
 import TheMessenger from "../../components/chat/Messenger/TheMessenger.vue";
 </script>
 
