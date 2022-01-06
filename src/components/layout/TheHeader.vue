@@ -37,8 +37,6 @@ import {
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-// import UserUpdate from "../user/UserUpdate.vue";
-// import UserMenu from "../user/UserMenu.vue";
 import BaseImage from "../ui/BaseImage.vue";
 
 const UserUpdate = defineAsyncComponent(() => import("../user/UserUpdate.vue"));

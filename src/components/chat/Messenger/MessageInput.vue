@@ -5,10 +5,6 @@
   </div>
 </template>
 
-<script setup>
-//
-</script>
-
 <style scoped>
 .input-container {
   position: relative;

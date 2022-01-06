@@ -23,8 +23,6 @@ export default {
     const { id, email, firstName, lastName, avatar, gender } =
       userData.data[payload.mode].user;
 
-    // await setDefaultAvatarToFileServer(id);
-
     const setLocalStoragePayload = {
       token: userData.data[payload.mode].token,
       user: {
