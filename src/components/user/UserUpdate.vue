@@ -82,15 +82,11 @@ const submitForm = async () => {
   }
 
   if (enteredAvatar.value.files.length === 1) {
-    console.log("avatar added");
     updateData.avatar = `${process.env.VUE_APP_FILESERVER_URL}/avatar/${userId.value}.png`;
 
     const avatar = enteredAvatar.value.files[0];
     updateAvatar(avatar);
   }
-
-  console.log("updateData");
-  console.log(updateData);
 
   updateData.gender = enteredGender.value;
 
